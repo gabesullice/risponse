@@ -48,7 +48,8 @@ func (c cors) headers(r *http.Request) map[string]string {
 
 type configuration struct {
 	Defaults struct {
-		Cors cors `json:"cors"`
+		Cors    cors              `json:"cors"`
+		Headers map[string]string `json:"headers"`
 	} `json:"defaults"`
 	Resources []resource `json:"resources"`
 }

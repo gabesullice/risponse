@@ -2,17 +2,40 @@
   "defaults": {
     "cors": {
       "allowOrigin": ["http://localhost:8080"],
-      "allowCredentials": true,
-      "exposeHeaders": ["Link"]
+      "allowCredentials": true
+    },
+    "headers": {
+      "content-type": "application/vnd.api+json"
     }
   },
   "resources": [{
+    "path": "/",
+    "status": 204,
+    "headers": {
+      "link": "</unauthorized>; rel=\"bookmark\""
+    }
+  }, {
     "path": "/unauthorized",
     "status": 401,
     "headers": {
-      "content-type": "application/vnd.api+json",
       "www-authenticate": "ClientBasic",
-      "link": "</login>; rel=\"authenticate\"; display=\"authenticate\""
+      "link": "</login>; rel=\"authenticate\""
+    },
+    "cors": {
+      "exposeHeaders": ["Link"]
     }
+  }, {
+    "path": "/login",
+    "status": 303,
+    "methods": ["POST"],
+    "headers": {
+      "location": "/authenticated"
+    },
+    "cors": {
+      "exposeHeaders": ["Link"]
+    }
+  }, {
+    "path": "/authenticated",
+    "status": 200
   }]
 }

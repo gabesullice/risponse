@@ -1,0 +1,10 @@
+{
+  "data": {
+    "attributes": {
+      "message": "You made it!"
+    }
+  },
+  "links": {
+    "self": "/authenticated"
+  }
+}

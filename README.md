@@ -21,22 +21,58 @@ You may provide response payloads by adding files within the base directory.
 
 ## Configuration
 
+Here is an example `config.json`. Values in the `defaults` object are applied to
+all resources, but can be overridden by them.
+
 ```json
 {
-  "defaults": { // optional
-    "cors": { // optional
+  "defaults": {
+    "cors": {
       "allowOrigin": ["http://localhost:8080"],
-      "allowCredentials": true,
-      "exposeHeaders": ["Link"]
+      "allowCredentials": true
     },
-  }
+    "headers": {
+      "content-type": "application/vnd.api+json"
+    }
+  },
   "resources": [{
     "path": "/unauthorized",
     "status": 401,
-    "headers": { // optional
+    "headers": {
       "www-authenticate": "ClientBasic",
       "link": "</login>; rel=\"authenticate\"; display=\"authenticate\""
     }
+    "cors": {
+      "exposeHeaders": ["Link"]
+    }
   }]
+}
+```
+
+Provided there exists the following file at `/unauthorized/get.json`:
+
+```json
+{
+  "errors": {
+    "status": "401 Unauthorized"
+  }
+}
+```
+
+An HTTP request to `/unauthorized` will return a response like so:
+
+```http
+HTTP/1.1 401 Unauthorized
+Access-Control-Allow-Credentials: true
+Access-Control-Allow-Origin: http://localhost:8080
+Access-Control-Expose-Headers: Link
+Content-Type: application/vnd.api+json
+Link: </login>; rel="authenticate"
+WWW-Authenticate: ClientBasic
+
+{
+  "errors": {
+    "status": "401 Unauthorized"
+  }
 }
 ```
