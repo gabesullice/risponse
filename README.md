@@ -41,8 +41,8 @@ defaults.
     "path": "/unauthorized",
     "status": 401,
     "headers": {
-      "www-authenticate": "ClientBasic",
-      "link": "</login>; rel=\"authenticate\"; display=\"authenticate\""
+      "www-authenticate": "Basic",
+      "link": "</login>; rel=\"authenticate\""
     },
     "cors": {
       "exposeHeaders": ["Link"]
@@ -70,7 +70,7 @@ Access-Control-Allow-Origin: http://localhost:8080
 Access-Control-Expose-Headers: Link
 Content-Type: application/vnd.api+json
 Link: </login>; rel="authenticate"
-WWW-Authenticate: ClientBasic
+WWW-Authenticate: Basic
 
 {
   "errors": {
