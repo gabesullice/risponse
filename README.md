@@ -1,6 +1,6 @@
 # Risponse
 
-Risponse is a simple, pseudo-static HTTP server. It's design goal is to be a
+Risponse is a simple, pseudo-static HTTP server. Its design goal is to be a
 quick and easy tool to build RESTful API backends for testing and debugging.
 
 ## Usage
@@ -21,8 +21,10 @@ You may provide response payloads by adding files within the base directory.
 
 ## Configuration
 
-Here is an example `config.json`. Values in the `defaults` object are applied to
-all resources, but can be overridden by them.
+Here is an example `config.json` file. Values in the `defaults` object are
+applied to all resources unless they are specificied in the resource object
+explicitly. At this time, only `cors` and `headers` may be specificied as
+defaults.
 
 ```json
 {
@@ -41,7 +43,7 @@ all resources, but can be overridden by them.
     "headers": {
       "www-authenticate": "ClientBasic",
       "link": "</login>; rel=\"authenticate\"; display=\"authenticate\""
-    }
+    },
     "cors": {
       "exposeHeaders": ["Link"]
     }
@@ -59,7 +61,7 @@ Provided there exists the following file at `/unauthorized/get.json`:
 }
 ```
 
-An HTTP request to `/unauthorized` will return a response like so:
+An HTTP request to `/unauthorized` will return this response:
 
 ```http
 HTTP/1.1 401 Unauthorized
